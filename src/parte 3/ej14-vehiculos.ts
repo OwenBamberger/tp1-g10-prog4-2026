@@ -29,7 +29,6 @@ export class Moto extends Vehiculo {
 
 export class Camion extends Vehiculo {
     acelerar(): void {
-        console.log(`El camión ${this.marca} ${this.modelo} está acelerando`); 
-        throw new Error("Implementar");
+        console.log(`El camión ${this.marca} ${this.modelo} está acelerando`);
     }
 }
