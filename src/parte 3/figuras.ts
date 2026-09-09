@@ -1,12 +1,5 @@
-/**
- * EJERCICIO 12 - Clase abstracta Figura
- * ---------------------------------------------------------------------------
- * `Figura` no se puede instanciar directamente: cada subclase debe
- * implementar calcularArea() y calcularPerimetro() a su manera.
- * Ahí aparece el polimorfismo: un mismo arreglo `Figura[]` puede contener
- * círculos, rectángulos y cuadrados, y a cada uno se le puede pedir su área
- * sin saber de qué tipo concreto es.
- */
+// EJERCICIO 12 - Clase abstracta Figura
+
 export abstract class Figura {
     abstract calcularArea(): number;
     abstract calcularPerimetro(): number;
@@ -18,13 +11,11 @@ export class Circulo extends Figura {
     }
 
     calcularArea(): number {
-        // TODO: área = π * radio²
-        throw new Error("Implementar");
+        return Math.PI * Math.pow(this.radio, 2);
     }
 
     calcularPerimetro(): number {
-        // TODO: perímetro (circunferencia) = 2 * π * radio
-        throw new Error("Implementar");
+        return 2 * Math.PI * this.radio;
     }
 }
 
@@ -37,13 +28,11 @@ export class Rectangulo extends Figura {
     }
 
     calcularArea(): number {
-        // TODO: área = base * altura
-        throw new Error("Implementar");
+        return this.base * this.altura;
     }
 
     calcularPerimetro(): number {
-        // TODO: perímetro = 2 * (base + altura)
-        throw new Error("Implementar");
+        return 2 * (this.base + this.altura);
     }
 }
 
@@ -53,12 +42,10 @@ export class Cuadrado extends Figura {
     }
 
     calcularArea(): number {
-        // TODO: área = lado²
-        throw new Error("Implementar");
+        return Math.pow(this.lado, 2);
     }
 
     calcularPerimetro(): number {
-        // TODO: perímetro = 4 * lado
-        throw new Error("Implementar");
+        return 4 * this.lado;
     }
 }
