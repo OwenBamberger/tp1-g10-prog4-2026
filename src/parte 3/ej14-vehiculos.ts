@@ -1,15 +1,5 @@
-/**
- * EJERCICIO 14 - Vehículos
- * ---------------------------------------------------------------------------
- * `Vehiculo` ya viene completo. Lo que hay que completar es el `acelerar()`
- * de cada subclase: cada una lo redefine (override) a su manera.
- *
- * Pregunta para pensar (no se responde acá, es para entender el resultado
- * del test de polimorfismo más abajo): si tenés un arreglo `Vehiculo[]` con
- * un Auto, una Moto y un Camion, y llamás `v.acelerar()` sobre cada uno,
- * ¿qué versión de `acelerar()` se ejecuta en cada caso? ¿La de `Vehiculo` o
- * la de la subclase concreta? ¿Por qué?
- */
+// EJERCICIO 14 - Vehículos
+
 export class Vehiculo {
     constructor(
         public marca: string,
@@ -27,21 +17,19 @@ export class Vehiculo {
 
 export class Auto extends Vehiculo {
     acelerar(): void {
-        // TODO: loguear (console.log) un mensaje que mencione "auto"
-        throw new Error("Implementar");
+        console.log(`El auto ${this.marca} ${this.modelo} está acelerando`); 
     }
 }
 
 export class Moto extends Vehiculo {
     acelerar(): void {
-        // TODO: loguear un mensaje que mencione "moto"
-        throw new Error("Implementar");
+        console.log(`La moto ${this.marca} ${this.modelo} está acelerando`); 
     }
 }
 
 export class Camion extends Vehiculo {
     acelerar(): void {
-        // TODO: loguear un mensaje que mencione "camión"
+        console.log(`El camión ${this.marca} ${this.modelo} está acelerando`); 
         throw new Error("Implementar");
     }
 }
