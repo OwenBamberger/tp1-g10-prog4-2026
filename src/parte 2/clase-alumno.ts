@@ -68,7 +68,7 @@ export class Alumno {
     }
 
     setEdad(edad: number): void {
-        if (edad < 0 || edad > 110) {
+        if (edad < 0 || edad > 120) {
             throw new Error("Edad inválida");
         } else {
             this.edad = edad;
