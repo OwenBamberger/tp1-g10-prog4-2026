@@ -1,24 +1,4 @@
-/**
- * EJERCICIO 20 (INTEGRADOR) - Sistema de gestión de una universidad
- * ---------------------------------------------------------------------------
- * Persona
- *   ├── Alumno
- *   └── Docente
- *
- * `Persona` es abstracta. `Alumno` y `Docente` implementan
- * `obtenerInformacion()` cada uno a su manera (polimorfismo).
- *
- * La relación con `Materia` es de ida y vuelta:
- *   - `alumno.inscribirse(materia)` debe dejar constancia tanto en el
- *     alumno (su lista de materias) como en la materia (su lista de
- *     alumnos inscriptos).
- *   - `docente.asignarMateria(materia)` es análogo, del lado docente.
- *
- * Los métodos de `Materia` (`inscribirAlumno`, `asignarDocente`) son el
- * mecanismo que usan `Alumno`/`Docente` para avisarle a la materia. No hace
- * falta (ni corresponde) llamarlos "a mano" salvo que quieras inscribir
- * solamente del lado de la materia.
- */
+// EJERCICIO 20 (INTEGRADOR) - Sistema de gestión de una universidad
 
 export abstract class Persona {
     constructor(
@@ -42,28 +22,35 @@ export class Materia {
     ) {}
 
     inscribirAlumno(alumno: Alumno): void {
-        // TODO: agregar el alumno si no está ya inscripto (comparar por legajo).
-        throw new Error("Implementar");
+        if (!this.alumnosInscriptos.some(a => a.legajo === alumno.legajo)) {
+            this.alumnosInscriptos.push(alumno);
+        }
     }
 
     quitarAlumno(alumno: Alumno): void {
-        // TODO: quitar el alumno de la lista, si está.
-        throw new Error("Implementar");
+        if (this.alumnosInscriptos.some(a => a.legajo === alumno.legajo)) {
+            this.alumnosInscriptos = this.alumnosInscriptos.filter(a => a.legajo !== alumno.legajo);
+        }
     }
 
     asignarDocente(docente: Docente): void {
-        // TODO: agregar el docente si no está ya asignado (comparar por legajo).
-        throw new Error("Implementar");
+        if (!this.docentesAsignados.some(d => d.legajo === docente.legajo)) {
+            this.docentesAsignados.push(docente);
+        }
     }
 
     getAlumnosInscriptos(): Alumno[] {
-        // TODO: devolver una copia, no la referencia interna.
-        throw new Error("Implementar");
+        return this.alumnosInscriptos.map(a => {
+            const alumnoClonado = new Alumno(a.legajo, a.nombre, a.apellido, a.email);
+            return alumnoClonado;
+        });
     }
 
     getDocentesAsignados(): Docente[] {
-        // TODO: devolver una copia, no la referencia interna.
-        throw new Error("Implementar");
+        return this.docentesAsignados.map(d => {
+            const docenteClonado = new Docente(d.legajo, d.nombre, d.apellido, d.email, d.especialidad);
+            return docenteClonado;
+        });
     }
 }
 
@@ -75,26 +62,28 @@ export class Alumno extends Persona {
     }
 
     inscribirse(materia: Materia): void {
-        // TODO: agregar la materia a este alumno (si no estaba ya) y avisarle
-        // a la materia llamando a materia.inscribirAlumno(this).
-        throw new Error("Implementar");
+        if (!this.materias.some(m => m.codigo === materia.codigo)) {
+            this.materias.push(materia);
+            materia.inscribirAlumno(this);
+        }
     }
 
     quitarMateria(materia: Materia): void {
-        // TODO: quitar la materia de este alumno y avisarle a la materia
-        // llamando a materia.quitarAlumno(this).
-        throw new Error("Implementar");
+        if (this.materias.some(m => m.codigo === materia.codigo)) {
+            this.materias = this.materias.filter(m => m.codigo !== materia.codigo);
+            materia.quitarAlumno(this);
+        }
     }
 
     getMaterias(): Materia[] {
-        // TODO: devolver una copia, no la referencia interna.
-        throw new Error("Implementar");
+        return this.materias.map(m => {
+            const materiaClonada = new Materia(m.codigo, m.nombre, m.horas);
+            return materiaClonada;
+        });
     }
 
     obtenerInformacion(): string {
-        // TODO: devolver un string que incluya nombre, apellido, legajo y
-        // la cantidad de materias inscriptas, mencionando "Alumno".
-        throw new Error("Implementar");
+        return `Alumno: ${this.nombre} ${this.apellido}. Legajo: ${this.legajo}. Cantidad de materias inscriptas: ${this.materias.length}`;
     }
 }
 
@@ -112,19 +101,20 @@ export class Docente extends Persona {
     }
 
     asignarMateria(materia: Materia): void {
-        // TODO: agregar la materia a este docente (si no estaba ya) y
-        // avisarle a la materia llamando a materia.asignarDocente(this).
-        throw new Error("Implementar");
+        if (!this.materiasAsignadas.some(m => m.codigo === materia.codigo)) {
+            this.materiasAsignadas.push(materia);
+            materia.asignarDocente(this);
+        }
     }
 
     getMateriasAsignadas(): Materia[] {
-        // TODO: devolver una copia, no la referencia interna.
-        throw new Error("Implementar");
+        return this.materiasAsignadas.map(m => {
+            const materiaClonada = new Materia(m.codigo, m.nombre, m.horas);
+            return materiaClonada;
+        });
     }
 
     obtenerInformacion(): string {
-        // TODO: devolver un string que incluya nombre, apellido, legajo y
-        // especialidad, mencionando "Docente".
-        throw new Error("Implementar");
+        return `Docente: ${this.nombre} ${this.apellido}. Legajo: ${this.legajo}. Especialidad: ${this.especialidad}`;
     }
 }
